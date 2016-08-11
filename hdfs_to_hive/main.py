@@ -36,7 +36,7 @@ def main():
     group_call.add_argument('--hive_cmd_env', default='/usr/local/apache-hive-1.2.0/bin/hive',
                             help='The hive path which will be to used to run.')
     group_call.add_argument('--hive_conf_path',
-                            default=os.path.join(os.path.dirname(__file__), 'conf', 'hive_table_schema_and_data.yaml'),
+                            default="/data0/weiboyi/azkaban/HdfsToHive/hdfs_to_hive.yml",
                             help='The conf path which will be to used to update table.')
     group_call.add_argument('--hive_store_folder_path',  default='/user/hive/warehouse/external_table_data/',
                             help='The hadoop path which will be to used to run.')

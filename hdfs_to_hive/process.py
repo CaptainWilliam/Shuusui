@@ -29,7 +29,10 @@ def process(hadoop_cmd_env, hive_cmd_env, hive_conf_path, hive_store_folder_path
             HDFSHelper.check_hdfs_path(table_store_path)
         except Exception, e:
             logger.info(e.message + ' And create table now!')
-            create_table(hadoop_cmd_env, hive_cmd_env, hive_store_folder_path, table_name, table_info_detail)
+            try:
+                create_table(hadoop_cmd_env, hive_cmd_env, hive_store_folder_path, table_name, table_info_detail)
+            except Exception, e:
+                logger.info(e.message)
 
         # after table was created, update it
         update_table(hadoop_cmd_env, hive_store_folder_path, table_name, table_info_detail)
