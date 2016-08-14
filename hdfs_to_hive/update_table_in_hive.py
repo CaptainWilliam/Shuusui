@@ -68,9 +68,10 @@ def find_the_newest_data_in_hdfs(table_data_path):
     return newest_date_name, newest_data_path
 
 
+# todo: alter XXX
 def update(hadoop_cmd_env, file_path_in_hdfs, table_path_in_hive, filename):
     # tmp_merge_location = os.path.join(os.path.dirname(__file__), 'test/data/tmp_merge_location', filename)
-    tmp_merge_location = '/data0/weiboyi/azkaban/HdfsToHive/temp_merge_position'
+    tmp_merge_location = '/XXX/temp_merge_position'
     try:
         status = commands.getstatusoutput('{} fs -test -d {}'.format(hadoop_cmd_env, file_path_in_hdfs))[0]
         # path is folder

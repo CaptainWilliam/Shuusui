@@ -32,7 +32,7 @@ def create_table(hadoop_cmd_env, hive_cmd_env, hive_store_folder_path, table_nam
     status, output = commands.getstatusoutput(
         '{} -e "create external table {}({}) '.format(hive_cmd_env, table_name, schema) +
         'row format delimited fields terminated by \'\\t\' stored as textfile ' +
-        'location \'hdfs://hamaster140:9000{}\';"'.format(table_path)
+        'location \'hdfs://master:9000{}\';"'.format(table_path)
     )
     if status:
         raise IOError(output)

@@ -23,6 +23,7 @@ def set_logging(log_folder_path, log_level):
     logging.config.dictConfig(log_config)
 
 
+# todo: alter XXX
 def main():
     # read parameters
     parser = argparse.ArgumentParser(prog='Hdfs source to hive')
@@ -33,12 +34,12 @@ def main():
     group_call = parser.add_argument_group('Group call', 'Parameters are used for calling this plugin.')
     group_call.add_argument('--hadoop_cmd_env', default='/usr/local/hadoop/bin/hadoop',
                             help='The hadoop path which will be to used to run.')
-    group_call.add_argument('--hive_cmd_env', default='/usr/local/apache-hive-1.2.0/bin/hive',
+    group_call.add_argument('--hive_cmd_env', default='/usr/local/apache-hive-XXX/bin/hive',
                             help='The hive path which will be to used to run.')
     group_call.add_argument('--hive_conf_path',
-                            default="/data0/weiboyi/azkaban/HdfsToHive/hdfs_to_hive.yml",
+                            default="XXX",
                             help='The conf path which will be to used to update table.')
-    group_call.add_argument('--hive_store_folder_path',  default='/user/hive/warehouse/external_table_data/',
+    group_call.add_argument('--hive_store_folder_path',  default='/user/hive/warehouse/',
                             help='The hadoop path which will be to used to run.')
     args = parser.parse_args()
     set_logging(args.log_folder_path, args.log_level)
@@ -48,7 +49,6 @@ def main():
         process(args.hadoop_cmd_env, args.hive_cmd_env, args.hive_conf_path, args.hive_store_folder_path)
     except Exception, e:
         logger.error(e.message)
-        raise
     logger.info('Update end')
 
 
