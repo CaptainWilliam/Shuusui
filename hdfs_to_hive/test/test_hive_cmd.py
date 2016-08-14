@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from hdfs_to_hive.update_table_in_hive import find_all_the_datas_in_hdfs
-from hdfs_to_hive.update_table_in_hive import find_the_newest_data_in_hdfs
+from update_table_in_hive import find_all_the_datas_in_hdfs
+from update_table_in_hive import find_the_newest_data_in_hdfs
 import unittest
 
 __author__ = 'LH Liu'
@@ -20,13 +20,13 @@ class TestParseLog(unittest.TestCase):
                 raise self.failureException(msg)
 
     def test_find_all_the_datas_in_hdfs(self):
-        ori_path = 'E:/PythonProject/Work/work_1/hdfs_to_hive/test/data/tmp_merge_location/.sohu_self_media_video_account_report_week_v1.0_${time}.crc'
-        result = ['E:/PythonProject/Work/work_1/hdfs_to_hive/test/data/tmp_merge_location/.sohu_self_media_video_account_report_week_v1.0_201631.crc']
+        ori_path = '/XXX/XXX_${time}.crc'
+        result = ['/XXX/XXX_201631.crc']
         self._list_equal(find_all_the_datas_in_hdfs(ori_path), result)
 
     def test_find_the_newest_data_in_hdfs(self):
-        ori_list =  'E:/PythonProject/Work/work_1/hdfs_to_hive/test/data/tmp_merge_location/.sohu_self_media_video_account_report_week_v1.0_${time}.crc'
-        result = 'E:/PythonProject/Work/work_1/hdfs_to_hive/test/data/tmp_merge_location/.sohu_self_media_video_account_report_week_v1.0_201631.crc'
+        ori_list = '/XXX/XXX_${time}.crc'
+        result = '/XXX/XXX_${time}.crc'
         self.assertEquals(find_the_newest_data_in_hdfs(ori_list), result)
 
 
