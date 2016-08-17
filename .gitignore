@@ -1,0 +1,2 @@
+hdfs_to_hive/conf/hive_table_schema_and_data.yaml
+parse_log/conf/item.yaml
