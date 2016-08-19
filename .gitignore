@@ -1,2 +1,4 @@
 hdfs_to_hive/conf/hive_table_schema_and_data.yaml
 parse_log/conf/item.yaml
+info_calculate/conf/hive_calculate_and_download.yaml
+info_calculate/conf/wrap_to_json_and_upload_to_es.yaml
