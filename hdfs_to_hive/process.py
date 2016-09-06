@@ -52,7 +52,7 @@ def process(hadoop_cmd_env, hive_cmd_env, hive_conf_path, hive_store_folder_path
             logger.info(e.message + ' Check schema changes failed!')
         if schema_changed:
             try:
-                commands.getstatusoutput('{} -e "use {};drop {};"'.format(hive_cmd_env, database_name, table_name))
+                commands.getstatusoutput('{} -e "use {};drop table {};"'.format(hive_cmd_env, database_name, table_name))
             except Exception, e:
                 logger.info(e.message)
             try:
