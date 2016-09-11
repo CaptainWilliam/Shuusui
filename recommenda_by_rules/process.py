@@ -12,13 +12,16 @@ __author__ = 'LH Liu'
 logger = logging.getLogger()
 
 
-def process(model_conf_path):
+def process(hive_cmd_env):
     # 1.1 load model selectors and models' conf
-    model_confs = ConfigHelper.load_config(model_conf_path)
+    model_confs = ConfigHelper.load_config(
+        os.path.join(os.path.dirname(__file__), 'conf', 'model_selectors_and_models.yaml'))
     model_selector = model_confs.get('model_selector')
     models = model_confs.get('models')
     # 1.2 load recmd requirement's conf
     requirements = ConfigHelper.load_config(os.path.join(os.path.dirname(__file__), 'conf', 'recmd_requirement.yaml'))
+    # 1.3 load recmd score items
+    score_params = ConfigHelper.load_config(os.path.join(os.path.dirname(__file__), 'conf', 'score_params.yaml'))
 
     # 2 get model key bu running model selector
     if model_selector:
@@ -28,7 +31,8 @@ def process(model_conf_path):
 
     # 3 get model by recmd key and run model
     if models:
-        recmd_result = get_recmd_result_by_running_models(models, recmd_model_key, requirements)
+        recmd_result = get_recmd_result_by_running_models(hive_cmd_env, requirements, score_params,
+                                                          models, recmd_model_key)
     else:
         raise
 
