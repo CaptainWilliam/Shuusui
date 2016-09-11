@@ -11,17 +11,16 @@ logger = logging.getLogger()
 
 def get_recmd_model_key_by_running_model_selector(requirements, model_selector):
     try:
-        # get params
         input_value_field = model_selector.get('input_value')
         input_value = requirements.get(input_value_field)
         if input_value:
-            selector_params = {'input_value': input_value, 'partition_method': model_selector['partition_method']}
-            recmd_model_key = run_model_selector(model_selector['selector_name'], selector_params)
+            selector_params = {'input_value': input_value, 'partition_method': model_selector.get('partition_method')}
+            recmd_model_key = run_model_selector(model_selector.get('selector_name'), selector_params)
         else:
             recmd_model_key = 'default'
     except Exception, e:
-        logger.info(e.message)
         recmd_model_key = 'default'
+        logger.info(e.message)
     return recmd_model_key
 
 
@@ -41,8 +40,8 @@ def md5_mod_selector(input_value, partition_method):
         raise
     mod_key = int(partition_method.get('mod_key'))
     partitions = partition_method.get('partitions')
-    input_value_digest = hashlib.md5(str(input_value))
-    input_value_digest_integer = int(input_value_digest, 16)
+    input_value_digest = hashlib.md5(str(input_value.encode('utf-8')))
+    input_value_digest_integer = int(input_value_digest.hexdigest(), 16)
     mod_residual = str(int(input_value_digest_integer) % int(mod_key))
     if mod_residual in partitions:
         return partitions[mod_residual]
