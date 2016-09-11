@@ -31,16 +31,14 @@ def main():
     log_parameter.add_argument('--log_level', default='DEBUG',
                                choices=['DEBUG', 'INFO', 'ERROR', 'WARNING', 'CRITICAL'], help='The log level.')
     group_call = parser.add_argument_group('Group call', 'Parameters are used for calling this plugin.')
-    group_call.add_argument('--hadoop_cmd_env', default='XXX/bin/hadoop',
-                            help='The hadoop path which will be to used to run.')
-    group_call.add_argument('--conf_path', default='XXX/item.yaml',
-                            help='The conf path which will be to used to init program.')
+    group_call.add_argument('--hive_cmd_env', default='/usr/local/apache-hive-1.2.0/bin/hive',
+                            help='The hive path which will be to used to run.')
     args = parser.parse_args()
     set_logging(args.log_folder_path, args.log_level)
     logger = logging.getLogger()
     logger.info('Begin program')
     try:
-        process(args.conf_path)
+        process(args.hive_cmd_env)
     except Exception, e:
         logger.error(e.message)
         raise
