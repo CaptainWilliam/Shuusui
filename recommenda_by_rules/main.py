@@ -31,7 +31,7 @@ def main():
     log_parameter.add_argument('--log_level', default='DEBUG',
                                choices=['DEBUG', 'INFO', 'ERROR', 'WARNING', 'CRITICAL'], help='The log level.')
     group_call = parser.add_argument_group('Group call', 'Parameters are used for calling this plugin.')
-    group_call.add_argument('--hive_cmd_env', default='/usr/local/apache-hive-1.2.0/bin/hive',
+    group_call.add_argument('--hive_cmd_env', default='XXX/hive',
                             help='The hive path which will be to used to run.')
     args = parser.parse_args()
     set_logging(args.log_folder_path, args.log_level)

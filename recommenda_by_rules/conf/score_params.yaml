@@ -1,0 +1,5 @@
+score_item_1:
+    pd_col: 'col_name'
+    func_name:  'func_name'
+    put_backward: 'col_name_that_should_be_put_backward'
+    rename:  'rename_the_col'

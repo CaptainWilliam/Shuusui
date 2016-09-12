@@ -1,0 +1,20 @@
+model_selector:
+    selector_name: 'md5_mod_selector'
+    input_value: 'company_id' # for example 100
+    partition_method: {
+        mod_key: 3,
+        partitions: {
+            "1": 'md5_model_0001', # 100 % 3 == 1, so choose simple_model_0001
+            "default": 'md5_model_0002' # if company id == 0, 2, then use default model
+        }
+    }
+
+models:
+    md5_model_0001:
+        model_name: 'md5_model_0001'
+        params:
+            'count': 2000
+    default:
+        model_name: 'md5_model_0001'
+        params:
+            'count': 2000
