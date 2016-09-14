@@ -3,3 +3,5 @@ parse_log/conf/item.yaml
 parse_log/simple_info_calculate/conf/hive_calculate_and_download.yaml
 info_calculate/conf/hive_calculate_and_download.yaml
 info_calculate/conf/wrap_to_json_and_upload_to_es.yaml
+recommenda_by_rules/conf/recmd_requirement.yaml
+recommenda_by_rules/models/score_funcs.py
