@@ -50,3 +50,12 @@ def md5_mod_selector(input_value, partition_method):
             return partitions['default']
         else:
             raise
+
+
+# newly add to implement selector selector
+def get_acnt_selector_key_by_running_acnt_selector_selector(requirements, model_selector):
+    return get_recmd_model_key_by_running_model_selector(requirements, model_selector)
+
+
+def md5_acnt_selector_selector(input_value, partition_method):
+    return md5_mod_selector(input_value, partition_method)
