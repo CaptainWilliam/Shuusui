@@ -28,9 +28,6 @@ def segmented_account_selector(company_id, recmd_result, count, selector_params)
     """
     try:
         # get selector params
-        # if (count >= len(recmd_result) // 2) or count is None:
-        #     raise
-        # raise SelectorRunnerError('Actual needed count is too big for this model')
         segmented_ratio = selector_params.get('segmented_ratio')
         assigned_nums = selector_params.get('assigned_nums')
         # change list to dataframe
@@ -43,19 +40,11 @@ def segmented_account_selector(company_id, recmd_result, count, selector_params)
                                                                  assigned_nums)
         else:
             raise
-            # raise ApiArgumentMissingError('no assigned_nums in selector_params')
         # np use (np.col.isin(list)) and python generally use (col in list)
         selected_result = tmp_dataframe[np.where(tmp_dataframe.index.isin(selected_order), True, False)]
         return selected_result.values.tolist()
     except Exception as e:
         pass
-    '''
-    except SelectorRunnerError as sre:
-        g_logger.error('Account Selector Error: {}'.format(sre.message))
-    except ApiArgumentMissingError as aame:
-        g_logger.error('Account Selector Error: {}'.format(aame.message))
-    '''
-
 
 def check_data_type(recmd_result):
     """
@@ -71,7 +60,6 @@ def check_data_type(recmd_result):
         return recmd_result
     else:
         raise
-        # raise SelectorRunnerError('input data type is not list, dict or pd.Dataframe')
 
 
 def set_random_seed(company_id):
@@ -82,7 +70,6 @@ def set_random_seed(company_id):
     """
     if company_id is None:
         raise
-        # raise ApiArgumentMissingError('no company_id used for account selector')
     # use company_id as random seed to make sure every company has different recmd results
     tmp_key = hashlib.md5(str(company_id.encode('utf-8')))
     unique_key_for_company_id = int(tmp_key.hexdigest(), 16)
@@ -109,7 +96,6 @@ def select_from_different_segmented_seq(index_seq, count, segmented_ratio, assig
         overflow_for_each_segmented_seq += adjusted_assigned_nums[i] - len(single_segmented_seq)
         overflow_for_each_segmented_seq = overflow_for_each_segmented_seq if overflow_for_each_segmented_seq > 0 else 0
     if overflow_for_each_segmented_seq > 0:
-        print 'Yes'
         index_of_segmented_seq, adjusted_assigned_nums = simple_binaryzation(index_of_segmented_seq,
                                                                              adjusted_assigned_nums)
     # pick up in each segmented dataset randomly
@@ -121,9 +107,7 @@ def select_from_different_segmented_seq(index_seq, count, segmented_ratio, assig
                 single_segmented_seq)
             adjusted_assigned_nums[i] = len(single_segmented_seq)
         segmented_seq_sample = random.sample(single_segmented_seq, adjusted_assigned_nums[i])
-        print segmented_seq_sample
         selected_order += segmented_seq_sample
-    print len(selected_order)
     return selected_order
 
 
@@ -154,7 +138,6 @@ def get_the_index_of_segmented_seq(index_seq, segmented_ratio):
     if index_of_segmented_seq[-1] is not index_seq_len - 1 and len(index_of_segmented_seq) == segmented_ratio_len + 1:
         index_of_segmented_seq[-1] = index_seq_len - 1
     # index_of_segmented_seq
-    print len(index_of_segmented_seq), ':', index_of_segmented_seq
     return index_of_segmented_seq
 
 
@@ -174,7 +157,6 @@ def adjust_assigned_nums_to_fit_count(count, assigned_nums):
         int(count * assigned_num / assigned_nums_sum) if int(count * assigned_num / assigned_nums_sum) > 0 else 1 for
         assigned_num in assigned_nums]
     beautified_segmented_ratio = beautify_distribution(count, normalized_segmented_ratio)
-    print sum(beautified_segmented_ratio), ':', beautified_segmented_ratio
     return beautified_segmented_ratio
 
 
@@ -194,8 +176,3 @@ def beautify_distribution(count, normalized_segmented_ratio):
         normalized_segmented_ratio[big_num] += 1
         big_num = (big_num - 1) % len(normalized_segmented_ratio)
     return normalized_segmented_ratio
-
-
-# test
-# segmented_account_selector('111', range(0, 111), 100, {'segmented_ratio': [1, 11, 11, 11, 11, 11, 11, 11, 11, 11],
-#                                                        'assigned_nums': [4, 6, 8, 10, 12, 120, 120, 120, 12, 12]})
